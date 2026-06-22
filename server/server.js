@@ -76,9 +76,23 @@ app.post("/api/register", (req, res) => {
 // =======================
 
 app.post("/api/login", (req, res) => {
+    console.log("LOGIN:", req.body);
+
+    const username = (req.body.username || "").trim();
+
+    if (!username) {
+        return res.status(400).json({
+            success: false,
+            message: "Username required"
+        });
+    }
+
     return res.json({
         success: true,
-        token: "demo-token"
+        token: "demo-token",
+        user: {
+            username: username
+        }
     });
 });
 
