@@ -315,5 +315,32 @@
     }
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+    const result = await window.gameApi.getUserStats();
+
+    const container = document.getElementById("achievements");
+
+    if (!result || !result.success) {
+        container.innerHTML = "Немає даних";
+        return;
+    }
+
+    const stats = result.stats;
+
+    container.innerHTML = `
+        <h3>Статистика</h3>
+        <p>Ігор: ${stats.gamesPlayed}</p>
+        <p>Перемог: ${stats.wins}</p>
+        <p>Поразок: ${stats.losses}</p>
+
+        <h3>Досягнення</h3>
+        <ul>
+            ${stats.achievements.map(a => `<li>${a}</li>`).join("")}
+        </ul>
+    `;
+});
+</script>
+
 </body>
 </html>

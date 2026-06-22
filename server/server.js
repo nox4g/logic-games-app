@@ -75,23 +75,27 @@ app.post("/api/register", (req, res) => {
 // LOGIN API
 // =======================
 
-app.post("/api/login", (req, res) => {
-    console.log("LOGIN:", req.body);
+app.post("/api/stats", (req, res) => {
+    const token = req.body.token;
 
-    const username = (req.body.username || "").trim();
-
-    if (!username) {
-        return res.status(400).json({
+    if (!token) {
+        return res.status(401).json({
             success: false,
-            message: "Username required"
+            message: "No token"
         });
     }
 
     return res.json({
         success: true,
-        token: "demo-token",
-        user: {
-            username: username
+        stats: {
+            gamesPlayed: 12,
+            wins: 7,
+            losses: 5,
+            achievements: [
+                "Перша гра",
+                "Перша перемога",
+                "Гравець рівня 1"
+            ]
         }
     });
 });
