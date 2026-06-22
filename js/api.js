@@ -9,16 +9,29 @@ function getAuthToken() {
 function getCurrentUser() {
     const user = localStorage.getItem("currentUser");
 
-    if (!user) {
+    if (!user || user === "undefined" || user === "null") {
         return null;
     }
 
-    return JSON.parse(user);
+    try {
+        return JSON.parse(user);
+    } catch (e) {
+        console.error("Bad localStorage user:", user);
+        localStorage.removeItem("currentUser");
+        return null;
+    }
 }
 
 function saveAuthData(token, user) {
+    if (!token) return;
+
     localStorage.setItem("authToken", token);
-    localStorage.setItem("currentUser", JSON.stringify(user));
+
+    if (user) {
+        localStorage.setItem("currentUser", JSON.stringify(user));
+    } else {
+        localStorage.removeItem("currentUser");
+    }
 }
 
 function clearAuthData() {
@@ -26,31 +39,23 @@ function clearAuthData() {
     localStorage.removeItem("currentUser");
 }
 
+// REGISTER
 async function registerUser(username, password) {
     const response = await fetch(API_URL + "/api/register", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            username: username,
-            password: password
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
     });
 
     return await response.json();
 }
 
+// LOGIN
 async function loginUser(username, password) {
     const response = await fetch(API_URL + "/api/login", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            username: username,
-            password: password
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
     });
 
     const data = await response.json();
@@ -62,78 +67,15 @@ async function loginUser(username, password) {
     return data;
 }
 
+// LOGOUT
 async function logoutUser() {
-    const token = getAuthToken();
-
-    await fetch(API_URL + "/api/logout", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            token: token
-        })
-    });
-
     clearAuthData();
 }
 
-async function saveGameResult(game, result, score, details) {
-    const token = getAuthToken();
-
-    if (!token) {
-        return {
-            success: false,
-            message: "Користувач не авторизований."
-        };
-    }
-
-    const response = await fetch(API_URL + "/api/results", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            token: token,
-            game: game,
-            result: result,
-            score: score || 0,
-            details: details || {}
-        })
-    });
-
-    return await response.json();
-}
-
-async function getUserStats() {
-    const token = getAuthToken();
-
-    if (!token) {
-        return {
-            success: false,
-            message: "Користувач не авторизований."
-        };
-    }
-
-    const response = await fetch(API_URL + "/api/stats", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            token: token
-        })
-    });
-
-    return await response.json();
-}
-
 window.gameApi = {
-    getAuthToken: getAuthToken,
-    getCurrentUser: getCurrentUser,
-    registerUser: registerUser,
-    loginUser: loginUser,
-    logoutUser: logoutUser,
-    saveGameResult: saveGameResult,
-    getUserStats: getUserStats
+    getAuthToken,
+    getCurrentUser,
+    registerUser,
+    loginUser,
+    logoutUser
 };
