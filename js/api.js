@@ -16,7 +16,7 @@ function getCurrentUser() {
     try {
         return JSON.parse(user);
     } catch (e) {
-        console.error("Bad localStorage user:", user);
+        console.error("Bad currentUser in localStorage:", user);
         localStorage.removeItem("currentUser");
         return null;
     }
@@ -77,5 +77,7 @@ window.gameApi = {
     getCurrentUser,
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    saveGameResult,
+    getUserStats
 };
