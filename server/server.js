@@ -2,84 +2,60 @@
 
 const express = require("express");
 const path = require("path");
-const cors = require("cors");
 
 const app = express();
 
-// ⚠️ КРИТИЧНО ДЛЯ CLOUD RUN
+// Cloud Run port
 const PORT = process.env.PORT || 8080;
+
+// =======================
+// SAFETY LOG (ДУЖЕ ВАЖЛИВО)
+// =======================
+console.log("SERVER STARTING...");
 
 // =======================
 // MIDDLEWARE
 // =======================
-app.use(cors());
 app.use(express.json());
 
 // =======================
-// ШЛЯХ ДО ФРОНТЕНДУ
+// FRONTEND PATH (SAFE)
 // =======================
-const frontendDir = path.join(__dirname, "..");
+const frontendDir = path.resolve(__dirname, "..");
+
+console.log("Frontend dir:", frontendDir);
 
 // =======================
-// СТАТИЧНІ ФАЙЛИ (ВАЖЛИВО)
+// STATIC FILES
 // =======================
 app.use(express.static(frontendDir));
 
 // =======================
-// ГОЛОВНА СТОРІНКА
+// ROOT
 // =======================
 app.get("/", (req, res) => {
-    res.sendFile(path.join(frontendDir, "index.html"));
+    const file = path.join(frontendDir, "index.html");
+    console.log("Sending:", file);
+    res.sendFile(file);
 });
 
 // =======================
-// HEALTH CHECK (Cloud Run)
+// HEALTH CHECK
 // =======================
 app.get("/health", (req, res) => {
     res.status(200).send("OK");
 });
 
 // =======================
-// REGISTER API
+// TEST API (щоб перевірити чи сервер живий)
 // =======================
-app.post("/api/register", (req, res) => {
-    console.log("REGISTER:", req.body);
-
-    const { username, password } = req.body;
-
-    if (!username || username.length < 3) {
-        return res.status(400).json({
-            success: false,
-            message: "Ім’я мінімум 3 символи"
-        });
-    }
-
-    if (!password || password.length < 4) {
-        return res.status(400).json({
-            success: false,
-            message: "Пароль мінімум 4 символи"
-        });
-    }
-
-    return res.json({
-        success: true,
-        message: "Реєстрація працює"
-    });
-});
-
-// =======================
-// LOGIN API
-// =======================
-app.post("/api/login", (req, res) => {
-    return res.json({
-        success: true,
-        token: "test-token"
-    });
+app.get("/api/test", (req, res) => {
+    res.json({ ok: true });
 });
 
 // =======================
 // START SERVER (КРИТИЧНО)
 // =======================
 app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log("Server running on port:", PORT);
 });
