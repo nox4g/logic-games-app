@@ -4,58 +4,52 @@ const express = require("express");
 const path = require("path");
 
 const app = express();
-
-// Cloud Run port
 const PORT = process.env.PORT || 8080;
 
-// =======================
-// SAFETY LOG (ДУЖЕ ВАЖЛИВО)
-// =======================
-console.log("SERVER STARTING...");
+console.log("BOOT START");
 
-// =======================
-// MIDDLEWARE
-// =======================
+// JSON
 app.use(express.json());
 
-// =======================
-// FRONTEND PATH (SAFE)
-// =======================
+// FRONTEND
 const frontendDir = path.resolve(__dirname, "..");
 
-console.log("Frontend dir:", frontendDir);
+console.log("frontendDir =", frontendDir);
 
-// =======================
 // STATIC FILES
-// =======================
 app.use(express.static(frontendDir));
 
-// =======================
-// ROOT
-// =======================
+// HOME
 app.get("/", (req, res) => {
-    const file = path.join(frontendDir, "index.html");
-    console.log("Sending:", file);
-    res.sendFile(file);
+    res.sendFile(path.join(frontendDir, "index.html"));
 });
 
-// =======================
-// HEALTH CHECK
-// =======================
+// HEALTH
 app.get("/health", (req, res) => {
-    res.status(200).send("OK");
+    res.send("OK");
 });
 
-// =======================
-// TEST API (щоб перевірити чи сервер живий)
-// =======================
-app.get("/api/test", (req, res) => {
-    res.json({ ok: true });
+// LOGIN (ВАЖЛИВО)
+app.post("/api/login", (req, res) => {
+    console.log("LOGIN HIT", req.body);
+
+    return res.json({
+        success: true,
+        token: "ok"
+    });
 });
 
-// =======================
-// START SERVER (КРИТИЧНО)
-// =======================
+// REGISTER
+app.post("/api/register", (req, res) => {
+    console.log("REGISTER HIT", req.body);
+
+    return res.json({
+        success: true,
+        message: "OK"
+    });
+});
+
+// START
 app.listen(PORT, "0.0.0.0", () => {
-    console.log("Server running on port:", PORT);
+    console.log("SERVER RUNNING ON", PORT);
 });
