@@ -1,10 +1,13 @@
 const express = require("express");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+const frontendDir = path.join(__dirname, "..");
+
 app.get("/", (req, res) => {
-    res.send("OK Cloud Run");
+    res.sendFile(path.join(frontendDir, "index.html"));
 });
 
 app.listen(PORT, "0.0.0.0", () => {

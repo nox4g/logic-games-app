@@ -2,11 +2,11 @@ FROM node:18
 
 WORKDIR /app
 
-COPY server/package*.json ./
+COPY package*.json ./
 RUN npm install
 
-COPY server/ .
+COPY . .
 
 EXPOSE 8080
 
-CMD ["node", "server.js"]
+CMD ["node", "server/server.js"]
