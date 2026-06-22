@@ -4,52 +4,88 @@ const express = require("express");
 const path = require("path");
 
 const app = express();
+
+// MUST for Cloud Run
 const PORT = process.env.PORT || 8080;
 
-console.log("BOOT START");
-
-// JSON
 app.use(express.json());
 
-// FRONTEND
-const frontendDir = path.resolve(__dirname, "..");
+// =======================
+// PATHS
+// =======================
 
-console.log("frontendDir =", frontendDir);
+// server.js лежить в /server
+// фронт лежить на рівень вище
+const frontendDir = path.join(__dirname, "..");
 
-// STATIC FILES
+// =======================
+// STATIC FILES (ДУЖЕ ВАЖЛИВО)
+// =======================
+
+// дозволяє відкривати /css, /js, /assets і т.д.
 app.use(express.static(frontendDir));
 
-// HOME
+// =======================
+// HOME PAGE
+// =======================
+
 app.get("/", (req, res) => {
     res.sendFile(path.join(frontendDir, "index.html"));
 });
 
-// HEALTH
+// =======================
+// HEALTH CHECK (Cloud Run)
+// =======================
+
 app.get("/health", (req, res) => {
-    res.send("OK");
+    res.status(200).send("OK");
 });
 
-// LOGIN (ВАЖЛИВО)
-app.post("/api/login", (req, res) => {
-    console.log("LOGIN HIT", req.body);
+// =======================
+// REGISTER API
+// =======================
 
-    return res.json({
-        success: true,
-        token: "ok"
-    });
-});
-
-// REGISTER
 app.post("/api/register", (req, res) => {
-    console.log("REGISTER HIT", req.body);
+    console.log("REGISTER:", req.body);
+
+    const username = (req.body.username || "").trim();
+    const password = (req.body.password || "").trim();
+
+    if (username.length < 3) {
+        return res.status(400).json({
+            success: false,
+            message: "Ім'я мінімум 3 символи"
+        });
+    }
+
+    if (password.length < 4) {
+        return res.status(400).json({
+            success: false,
+            message: "Пароль мінімум 4 символи"
+        });
+    }
 
     return res.json({
         success: true,
-        message: "OK"
+        message: "Реєстрація OK"
     });
 });
 
-// START
+// =======================
+// LOGIN API
+// =======================
+
+app.post("/api/login", (req, res) => {
+    return res.json({
+        success: true,
+        token: "demo-token"
+    });
+});
+
+// =======================
+// START SERVER
+// =======================
+
 app.listen(PORT, "0.0.0.0", () => {
-    console.log("SERVER RUNNING ON", PORT);
+    console.log("Server running on port", PORT);
 });
