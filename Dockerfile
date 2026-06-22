@@ -2,11 +2,17 @@ FROM node:18
 
 WORKDIR /app
 
-COPY server/package*.json ./
+# встановлення залежностей
+COPY server/package*.json ./server/
+WORKDIR /app/server
 RUN npm install
 
-COPY server/ .
+# назад у корінь
+WORKDIR /app
+
+# копіюємо ВСЕ (сервер + фронт)
+COPY . .
 
 EXPOSE 8080
 
-CMD ["node", "server.js"]
+CMD ["node", "server/server.js"]
