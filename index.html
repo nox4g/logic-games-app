@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="main.title">Колекція логічних ігор</title>
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div class="main-wrapper">
+
+    <header class="top-header">
+
+        <div class="logo">
+            <img src="assets/logo.jpg" alt="Логотип сайту">
+        </div>
+
+        <div class="search-box">
+            <input 
+                type="text" 
+                id="searchInput" 
+                data-i18n-placeholder="nav.search" 
+                placeholder="Пошук гри..."
+            >
+        </div>
+
+        <div class="header-actions">
+            <select class="language-select">
+                <option value="uk">UA</option>
+                <option value="en">EN</option>
+            </select>
+
+            <button class="login-btn">Увійти</button>
+        </div>
+
+    </header>
+
+    <div class="content-layout">
+
+        <aside class="sidebar">
+            <h2 data-i18n="nav.gameTypes">Типи ігор</h2>
+
+            <button class="type-btn active" data-type="all" data-i18n="nav.allGames">Усі ігри</button>
+            <button class="type-btn" data-type="number" data-i18n="nav.numberGames">Числові</button>
+            <button class="type-btn" data-type="board" data-i18n="nav.boardGames">Настільні</button>
+            <button class="type-btn" data-type="logic" data-i18n="nav.logicGames">Головоломки</button>
+            <button class="type-btn" data-type="card" data-i18n="nav.cardGames">Карткові</button>
+        </aside>
+
+        <main class="games-area">
+
+            <h1 data-i18n="main.title">Інтерактивна колекція логічних ігор</h1>
+
+            <div class="games-grid">
+
+    <a href="pages/2048.html" class="game-square" data-search="2048" data-type="number">
+        <h3 data-i18n="main.2048.title">2048</h3>
+        <p data-i18n="main.2048.desc">Об’єднуй плитки та набери 2048</p>
+    </a>
+
+    <a href="pages/tictactoe.html" class="game-square" data-search="tic-tac-toe хрестики нулики хрестики-нулики" data-type="board">
+        <h3 data-i18n="main.tictactoe.title">Хрестики-нулики</h3>
+        <p data-i18n="main.tictactoe.desc">Постав три символи в один ряд</p>
+    </a>
+
+    <a href="pages/sudoku.html" class="game-square" data-search="sudoku судоку" data-type="logic">
+        <h3 data-i18n="main.sudoku.title">Судоку</h3>
+        <p data-i18n="main.sudoku.desc">Заповни поле числами без повторів</p>
+    </a>
+
+    <a href="pages/solitaire.html" class="game-square" data-search="solitaire пасьянс" data-type="card">
+        <h3 data-i18n="main.solitaire.title">Пасьянс</h3>
+        <p data-i18n="main.solitaire.desc">Розклади карти у правильному порядку</p>
+    </a>
+
+    <a href="pages/minesweeper.html" class="game-square" data-search="minesweeper сапер міни" data-type="logic">
+        <h3 data-i18n="main.minesweeper.title">Сапер</h3>
+        <p data-i18n="main.minesweeper.desc">Відкрий поле та уникай мін</p>
+    </a>
+
+    <a href="pages/chess.html" class="game-square" data-search="chess шахи" data-type="board">
+        <h3 data-i18n="main.chess.title">Шахи</h3>
+        <p data-i18n="main.chess.desc">Продумуй ходи та постав мат</p>
+    </a>
+
+    <a href="pages/checkers.html" class="game-square" data-search="checkers шашки" data-type="board">
+        <h3 data-i18n="main.checkers.title">Шашки</h3>
+        <p data-i18n="main.checkers.desc">Захоплюй шашки суперника</p>
+    </a>
+
+</div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<div id="authModal" class="auth-modal hidden">
+    <div class="auth-box">
+        <button id="closeAuthModal" class="auth-close">×</button>
+
+        <h2 data-i18n="auth.title">Вхід у систему</h2>
+
+        <label for="authUsername" data-i18n="auth.login">Логін</label>
+        <input
+            type="text"
+            id="authUsername"
+            placeholder="Введіть логін"
+            data-i18n-placeholder="auth.loginPlaceholder"
+        >
+
+        <label for="authPassword" data-i18n="auth.password">Пароль</label>
+        <input
+            type="password"
+            id="authPassword"
+            placeholder="Введіть пароль"
+            data-i18n-placeholder="auth.passwordPlaceholder"
+        >
+
+        <div class="auth-buttons">
+            <button id="loginUserBtn" data-i18n="auth.loginButton">Увійти</button>
+            <button id="registerUserBtn" data-i18n="auth.registerButton">Зареєструватися</button>
+        </div>
+
+        <p id="authMessage" class="auth-message"></p>
+    </div>
+</div>
+<script src="js/i18n.js"></script>
+<script src="js/api.js"></script>
+
+<script>
+    const searchInput = document.getElementById("searchInput");
+    const gameSquares = document.querySelectorAll(".game-square");
+    const typeButtons = document.querySelectorAll(".type-btn");
+
+    let currentType = "all";
+
+    function filterGames() {
+        const searchText = searchInput.value.toLowerCase().trim();
+
+        gameSquares.forEach(function(game) {
+            const searchData = game.dataset.search.toLowerCase();
+            const type = game.dataset.type;
+
+            const matchesSearch = searchData.includes(searchText);
+            const matchesType = currentType === "all" || type === currentType;
+
+            if (matchesSearch && matchesType) {
+                game.style.display = "flex";
+            } else {
+                game.style.display = "none";
+            }
+        });
+    }
+
+    searchInput.addEventListener("input", filterGames);
+
+    typeButtons.forEach(function(button) {
+        button.addEventListener("click", function() {
+            typeButtons.forEach(function(btn) {
+                btn.classList.remove("active");
+            });
+
+            button.classList.add("active");
+            currentType = button.dataset.type;
+
+            filterGames();
+        });
+    });
+
+    const loginButton = document.querySelector(".login-btn");
+    const authModal = document.getElementById("authModal");
+    const closeAuthModal = document.getElementById("closeAuthModal");
+    const authUsername = document.getElementById("authUsername");
+    const authPassword = document.getElementById("authPassword");
+    const loginUserBtn = document.getElementById("loginUserBtn");
+    const registerUserBtn = document.getElementById("registerUserBtn");
+    const authMessage = document.getElementById("authMessage");
+
+    if (
+        loginButton &&
+        authModal &&
+        closeAuthModal &&
+        authUsername &&
+        authPassword &&
+        loginUserBtn &&
+        registerUserBtn &&
+        authMessage
+    ) {
+        updateLoginButton();
+
+        loginButton.addEventListener("click", function() {
+            const user = window.gameApi.getCurrentUser();
+
+            if (user) {
+                window.location.href = "pages/profile.html";
+                return;
+            }
+
+            authModal.classList.remove("hidden");
+            authMessage.textContent = "";
+            authUsername.value = "";
+            authPassword.value = "";
+        });
+
+        closeAuthModal.addEventListener("click", closeModal);
+
+        loginUserBtn.addEventListener("click", async function() {
+            const username = authUsername.value.trim();
+            const password = authPassword.value.trim();
+
+            const result = await window.gameApi.loginUser(username, password);
+
+            authMessage.textContent = result.message || "";
+
+            if (result.success) {
+                closeModal();
+                updateLoginButton();
+            }
+        });
+
+        registerUserBtn.addEventListener("click", async function() {
+            const username = authUsername.value.trim();
+            const password = authPassword.value.trim();
+
+            const result = await window.gameApi.registerUser(username, password);
+
+            authMessage.textContent = result.message || "";
+        });
+    }
+
+    function openAuthModal() {
+        authModal.classList.remove("hidden");
+        authMessage.textContent = "";
+        authUsername.value = "";
+        authPassword.value = "";
+    }
+
+    function closeModal() {
+        authModal.classList.add("hidden");
+    }
+
+    function updateLoginButton() {
+        const user = window.gameApi.getCurrentUser();
+
+        if (user) {
+            loginButton.textContent = user.username;
+            loginButton.classList.add("logged-in");
+            loginButton.title = "Перейти в профіль";
+        } else {
+            if (typeof translate === "function") {
+                loginButton.textContent = translate("nav.login");
+            } else {
+                loginButton.textContent = "Увійти";
+            }
+
+            loginButton.classList.remove("logged-in");
+            loginButton.title = "";
+        }
+    }
+
+    document.querySelectorAll(".language-select").forEach(function(select) {
+        select.addEventListener("change", function() {
+            setTimeout(updateLoginButton, 0);
+        });
+    });
+</script>
+
+</body>
+</html>

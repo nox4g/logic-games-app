@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гра Chess</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/games/chess.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<header class="game-header">
+    <a href="../index.html" class="home-btn" aria-label="На головну">
+        <svg viewBox="0 0 24 24" class="home-icon" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </a>
+
+    <select class="language-select game-language-select">
+        <option value="uk">UA</option>
+        <option value="en">EN</option>
+    </select>
+
+    <div>
+        <h1 data-i18n="game.chess.title">Гра Шахи</h1>
+        <p data-i18n="game.chess.desc">Продумуйте ходи, захищайте короля та перемагайте суперника.</p>
+    </div>
+</header>
+
+<main class="game-page">
+
+    <div class="mode-box">
+        <p data-i18n="game.mode">Режим гри:</p>
+
+        <button id="chessTwoPlayersMode" class="mode-btn active-mode" data-i18n="game.twoPlayers">
+            2 гравці
+        </button>
+
+        <button id="chessAiMode" class="mode-btn" data-i18n="game.ai">
+            Проти ШІ
+        </button>
+    </div>
+
+    <div class="difficulty-box hidden" id="chessDifficultyBox">
+        <p data-i18n="game.difficulty">Складність:</p>
+
+        <div class="difficulty-buttons">
+            <button class="difficulty-btn chess-difficulty-btn easy-btn active-difficulty" data-difficulty="easy">
+                <span data-i18n="difficulty.chess.easy">Легка (300 ELO)</span>
+            </button>
+
+            <button class="difficulty-btn chess-difficulty-btn medium-btn" data-difficulty="medium">
+                <span data-i18n="difficulty.chess.medium">Середня (650 ELO)</span>
+            </button>
+
+            <button class="difficulty-btn chess-difficulty-btn hard-btn" data-difficulty="hard">
+                <span data-i18n="difficulty.chess.hard">Складна (1000 ELO)</span>
+            </button>
+
+            <button class="difficulty-btn chess-difficulty-btn expert-btn" data-difficulty="expert">
+                <span data-i18n="difficulty.chess.expert">Експерт (2000 ELO)</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="game-info">
+        <p>
+            <span data-i18n="game.currentPlayer">Хід гравця:</span>
+            <span id="chessCurrentPlayer">Білі</span>
+        </p>
+
+        <button id="restartChess" data-i18n="button.newGame">Нова гра</button>
+    </div>
+
+    <div id="chessBoard" class="chess-board"></div>
+
+    <p id="chessMessage" class="game-message"></p>
+
+    <section class="rules-box">
+        <h2 data-i18n="game.rules">Правила гри</h2>
+        <p data-i18n="rules.chess">
+            У грі шахи гравці по черзі пересувають фігури по дошці 8×8.
+            Кожна фігура має власні правила руху. Мета гри — поставити мат королю суперника.
+        </p>
+    </section>
+
+</main>
+
+<script src="../js/i18n.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/games/chess.js"></script>
+</body>
+</html>

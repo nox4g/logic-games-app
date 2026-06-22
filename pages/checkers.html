@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гра Checkers</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/games/checkers.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<header class="game-header">
+    <a href="../index.html" class="home-btn" aria-label="На головну">
+        <svg viewBox="0 0 24 24" class="home-icon" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </a>
+
+    <select class="language-select game-language-select">
+        <option value="uk">UA</option>
+        <option value="en">EN</option>
+    </select>
+
+    <div>
+        <h1 data-i18n="game.checkers.title">Гра Шашки</h1>
+        <p data-i18n="game.checkers.desc">Захоплюйте шашки суперника та доведіть свою стратегію до перемоги.</p>
+    </div>
+</header>
+
+<main class="game-page">
+
+    <div class="mode-box">
+        <p data-i18n="game.mode">Режим гри:</p>
+
+        <button id="checkersTwoPlayersMode" class="mode-btn active-mode" data-i18n="game.twoPlayers">
+            2 гравці
+        </button>
+
+        <button id="checkersAiMode" class="mode-btn" data-i18n="game.ai">
+            Проти ШІ
+        </button>
+    </div>
+
+    <div class="game-info">
+        <p>
+            <span data-i18n="game.currentPlayer">Хід гравця:</span>
+            <span id="checkersCurrentPlayer">Світлі</span>
+        </p>
+
+        <p>
+            <span data-i18n="game.checkers.whitePieces">Світлі:</span>
+            <span id="whitePiecesCount">12</span>
+        </p>
+
+        <p>
+            <span data-i18n="game.checkers.blackPieces">Темні:</span>
+            <span id="blackPiecesCount">12</span>
+        </p>
+
+        <button id="restartCheckers" data-i18n="button.newGame">Нова гра</button>
+    </div>
+
+    <div id="checkersBoard" class="checkers-board"></div>
+
+    <p id="checkersMessage" class="game-message"></p>
+
+    <section class="rules-box">
+        <h2 data-i18n="game.rules">Правила гри</h2>
+        <p data-i18n="rules.checkers">
+            У грі шашки гравці по черзі пересувають фігури по діагоналі темними клітинками.
+            Якщо поруч є шашка суперника і за нею вільна клітинка, її можна побити.
+            Перемагає той, хто забере всі шашки суперника або заблокує його ходи.
+        </p>
+    </section>
+
+</main>
+
+<script src="../js/i18n.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/games/checkers.js"></script>
+</body>
+</html>

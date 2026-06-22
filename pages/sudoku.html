@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гра Sudoku</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/games/sudoku.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<header class="game-header">
+    <a href="../index.html" class="home-btn" aria-label="На головну">
+        <svg viewBox="0 0 24 24" class="home-icon" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </a>
+
+    <select class="language-select game-language-select">
+        <option value="uk">UA</option>
+        <option value="en">EN</option>
+    </select>
+
+    <div>
+        <h1 data-i18n="game.sudoku.title">Гра Судоку</h1>
+        <p data-i18n="game.sudoku.desc">
+            Заповніть поле числами від 1 до 9 так, щоб вони не повторювалися.
+        </p>
+    </div>
+</header>
+
+<main class="game-page">
+
+    <div class="difficulty-box">
+        <p data-i18n="game.difficulty">Складність:</p>
+
+        <div class="difficulty-buttons">
+            <button class="difficulty-btn sudoku-difficulty-btn easy-btn active-difficulty" data-difficulty="easy">
+                <span data-i18n="game.easy">Легка</span>
+                <span data-i18n="difficulty.easy.sudoku">45 відкритих / 5 життів</span>
+            </button>
+
+            <button class="difficulty-btn sudoku-difficulty-btn medium-btn" data-difficulty="medium">
+                <span data-i18n="game.medium">Середня</span>
+                <span data-i18n="difficulty.medium.sudoku">35 відкритих / 4 життя</span>
+            </button>
+
+            <button class="difficulty-btn sudoku-difficulty-btn hard-btn" data-difficulty="hard">
+                <span data-i18n="game.hard">Складна</span>
+                <span data-i18n="difficulty.hard.sudoku">25 відкритих / 3 життя</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="game-info">
+        <p>
+            <span data-i18n="game.lives">Життя:</span>
+            <span id="sudokuLives">5</span>
+        </p>
+
+        <p>
+            <span data-i18n="game.difficulty">Складність:</span>
+            <span id="sudokuDifficultyName">Легка</span>
+        </p>
+
+        <button id="newSudokuGame" data-i18n="button.newGame">Нова гра</button>
+        <button id="restartSameSudoku" data-i18n="button.restart">Почати спочатку</button>
+
+        <button id="hintSudoku">
+            <span data-i18n="button.hint">Підказка</span>
+            <span id="sudokuHints">2/2</span>
+        </button>
+    </div>
+
+    <div class="sudoku-layout">
+        <div class="sudoku-board-box">
+            <div id="sudokuBoard" class="sudoku-board"></div>
+        </div>
+
+        <div class="sudoku-tools">
+            <div class="number-panel">
+                <button class="number-btn" data-number="1">1</button>
+                <button class="number-btn" data-number="2">2</button>
+                <button class="number-btn" data-number="3">3</button>
+                <button class="number-btn" data-number="4">4</button>
+                <button class="number-btn" data-number="5">5</button>
+                <button class="number-btn" data-number="6">6</button>
+                <button class="number-btn" data-number="7">7</button>
+                <button class="number-btn" data-number="8">8</button>
+                <button class="number-btn" data-number="9">9</button>
+                <button id="eraseNumber" class="number-btn erase-btn">⌫</button>
+            </div>
+        </div>
+    </div>
+
+    <p id="sudokuMessage" class="game-message"></p>
+
+    <section class="rules-box">
+        <h2 data-i18n="game.rules">Правила гри</h2>
+        <p data-i18n="rules.sudoku">
+            У грі Sudoku потрібно заповнити поле 9×9 числами від 1 до 9.
+            У кожному рядку, стовпці та квадраті 3×3 числа не повинні повторюватися.
+        </p>
+    </section>
+
+</main>
+
+<script src="../js/i18n.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/games/sudoku.js"></script>
+</body>
+</html>

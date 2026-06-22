@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гра Minesweeper</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/games/minesweeper.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<header class="game-header">
+    <a href="../index.html" class="home-btn" aria-label="На головну">
+        <svg viewBox="0 0 24 24" class="home-icon" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </a>
+
+    <select class="language-select game-language-select">
+        <option value="uk">UA</option>
+        <option value="en">EN</option>
+    </select>
+
+    <div>
+        <h1 data-i18n="game.minesweeper.title">Гра Сапер</h1>
+        <p data-i18n="game.minesweeper.desc">Відкривайте клітинки та уникайте мін.</p>
+    </div>
+</header>
+
+<main class="game-page">
+
+    <div class="difficulty-box">
+        <p data-i18n="game.difficulty">Складність:</p>
+
+        <div class="difficulty-buttons">
+            <button class="difficulty-btn easy-btn active-difficulty" data-difficulty="easy">
+                <span data-i18n="game.easy">Легка</span>
+                <span data-i18n="difficulty.easy.minesweeper">10×10 / 10 мін</span>
+            </button>
+
+            <button class="difficulty-btn medium-btn" data-difficulty="medium">
+                <span data-i18n="game.medium">Середня</span>
+                <span data-i18n="difficulty.medium.minesweeper">15×15 / 35 мін</span>
+            </button>
+
+            <button class="difficulty-btn hard-btn" data-difficulty="hard">
+                <span data-i18n="game.hard">Складна</span>
+                <span data-i18n="difficulty.hard.minesweeper">20×20 / 80 мін</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="game-info">
+        <p>
+            <span data-i18n="game.field">Поле:</span>
+            <span id="boardInfo">10×10</span>
+        </p>
+
+        <p>
+            <span data-i18n="game.mines">Міни:</span>
+            <span id="minesCount">10</span>
+        </p>
+
+        <button id="restartMinesweeper" data-i18n="button.newGame">Нова гра</button>
+    </div>
+
+    <p class="minesweeper-hint" data-i18n="game.minesweeper.hint">
+        Ліва кнопка миші — відкрити клітинку. Права кнопка миші — поставити прапорець.
+    </p>
+
+    <div class="board-wrapper">
+        <div id="minesweeperBoard" class="minesweeper-board"></div>
+    </div>
+
+    <p id="minesweeperMessage" class="game-message"></p>
+
+    <section class="rules-box">
+        <h2 data-i18n="game.rules">Правила гри</h2>
+        <p data-i18n="rules.minesweeper">
+            У грі Minesweeper потрібно відкрити всі безпечні клітинки на полі.
+            Якщо гравець відкриває клітинку з міною — гра завершується поразкою.
+            Числа на клітинках показують, скільки мін знаходиться поруч.
+        </p>
+    </section>
+
+</main>
+
+<script src="../js/i18n.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/games/minesweeper.js"></script>
+</body>
+</html>

@@ -1,0 +1,488 @@
+.header-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+.language-select {
+    padding: 11px;
+    border: 2px solid #2d3e50;
+    border-radius: 8px;
+    font-weight: bold;
+    background: white;
+    cursor: pointer;
+}
+
+.login-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background: #217dbb;
+}
+
+.login-btn.logged-in {
+    background: #27ae60;
+}
+
+.login-btn.logged-in:hover {
+    background: #1e8449;
+}
+
+.type-btn {
+    width: 100%;
+    display: block;
+    background: #f3f5f9;
+    color: #2d3e50;
+    border: 2px solid #2d3e50;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.type-btn:hover {
+    background: #eaf4ff;
+}
+
+.type-btn.active {
+    background: #3498db;
+    color: white;
+    border-color: #3498db;
+}
+
+.game-header {
+    position: relative;
+    background: #2d3e50;
+    color: white;
+    text-align: center;
+    padding: 35px 20px;
+}
+
+.game-header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.game-header p {
+    font-size: 18px;
+}
+
+.home-btn {
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.home-icon {
+    width: 48px;
+    height: 48px;
+    fill: white;
+    transition: transform 0.2s ease;
+}
+
+.home-btn:hover .home-icon {
+    transform: scale(1.12);
+}
+
+
+.game-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    flex-wrap: wrap;
+}
+
+.game-info button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.game-info button:hover {
+    background: #217dbb;
+}
+
+.game-message {
+    margin-top: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #2d3e50;
+}
+
+.mode-box {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.mode-box p {
+    font-size: 18px;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.mode-btn {
+    background: #ffffff;
+    color: #2d3e50;
+    border: 2px solid #3498db;
+    padding: 10px 18px;
+    margin: 5px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.mode-btn:hover {
+    background: #eaf4ff;
+}
+
+.active-mode {
+    background: #3498db;
+    color: white;
+}
+
+.difficulty-box {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.difficulty-box p {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2d3e50;
+    margin-bottom: 12px;
+}
+
+.difficulty-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.difficulty-btn {
+    min-width: 140px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    opacity: 0.75;
+}
+
+.difficulty-btn span {
+    display: block;
+    font-size: 13px;
+    margin-top: 5px;
+    font-weight: normal;
+}
+
+.difficulty-btn:hover {
+    transform: translateY(-3px);
+    opacity: 1;
+}
+
+.easy-btn {
+    background: #27ae60;
+}
+
+.medium-btn {
+    background: #f39c12;
+}
+
+.hard-btn {
+    background: #e74c3c;
+}
+
+.expert-btn {
+    background: #320181;
+}
+
+.active-difficulty {
+    opacity: 1;
+    box-shadow: 0 0 0 4px rgba(45, 62, 80, 0.25);
+    transform: scale(1.05);
+}
+
+.game-language-select {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.auth-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.auth-modal.hidden {
+    display: none !important;
+}
+
+.auth-box {
+    width: 380px;
+    max-width: 90%;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.auth-box h2 {
+    text-align: center;
+    color: #2d3e50;
+    font-size: 26px;
+    margin-bottom: 22px;
+}
+
+.auth-box label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #2d3e50;
+}
+
+.auth-box input {
+    width: 100%;
+    display: block;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #2d3e50;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+}
+
+.auth-box input:focus {
+    border-color: #3498db;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.auth-buttons button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 11px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.auth-buttons button:hover {
+    background: #217dbb;
+}
+
+.auth-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+    color: #2d3e50;
+}
+
+.auth-close:hover {
+    color: #e74c3c;
+}
+
+.auth-message {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #2d3e50;
+}
+
+.profile-header {
+    position: relative;
+}
+
+.profile-language-select {
+    position: absolute;
+    right: 130px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.profile-logout-btn {
+    position: absolute;
+    right: 35px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.profile-logout-btn:hover {
+    background: #c0392b;
+}
+
+.profile-page {
+    padding: 45px 25px;
+}
+
+.profile-user-card,
+.profile-achievements {
+    max-width: 1050px;
+    margin: 0 auto 30px;
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.profile-user-card h2,
+.profile-achievements h2 {
+    text-align: center;
+    color: #2d3e50;
+    margin-bottom: 20px;
+}
+
+.profile-user-card p {
+    font-size: 18px;
+    text-align: center;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.game-achievement-card {
+    min-height: 155px;
+    background: #f3f5f9;
+    border: 2px solid #2d3e50;
+    border-radius: 14px;
+    padding: 15px;
+}
+
+.game-achievement-card h3 {
+    text-align: center;
+    color: #2d3e50;
+    margin-bottom: 12px;
+    font-size: 20px;
+}
+
+.achievement-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    margin-bottom: 7px;
+    color: #2d3e50;
+}
+
+.achievement-row strong {
+    color: #3498db;
+    font-size: 17px;
+}
+
+@media (max-width: 1000px) {
+    .achievements-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 750px) {
+    .achievements-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .profile-logout-btn {
+        right: 20px;
+        padding: 11px 16px;
+    }
+
+    .profile-language-select {
+        right: 115px;
+    }
+}
+
+@media (max-width: 600px) {
+    .game-language-select {
+        top: 20px;
+        right: 20px;
+        transform: none;
+    }
+
+    .profile-header {
+        padding-top: 105px;
+    }
+
+    .profile-language-select {
+        top: 25px;
+        right: 105px;
+        transform: none;
+    }
+
+    .profile-logout-btn {
+        top: 25px;
+        right: 15px;
+        transform: none;
+    }
+
+    .achievements-grid {
+        grid-template-columns: 1fr;
+    }
+}

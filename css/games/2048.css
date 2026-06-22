@@ -1,0 +1,83 @@
+.board-2048 {
+    width: 360px;
+    background: #bbada0;
+    margin: 25px auto;
+    padding: 10px;
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    touch-action: none;
+}
+
+.tile {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #cdc1b4;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    font-weight: bold;
+    color: #776e65;
+}
+
+.tile-2 {
+    background: #eee4da;
+}
+
+.tile-4 {
+    background: #ede0c8;
+}
+
+.tile-8 {
+    background: #f2b179;
+    color: white;
+}
+
+.tile-16 {
+    background: #f59563;
+    color: white;
+}
+
+.tile-32 {
+    background: #f67c5f;
+    color: white;
+}
+
+.tile-64 {
+    background: #f65e3b;
+    color: white;
+}
+
+.tile-128 {
+    background: #edcf72;
+    color: white;
+    font-size: 22px;
+}
+
+.tile-256 {
+    background: #edcc61;
+    color: white;
+    font-size: 22px;
+}
+
+.tile-512 {
+    background: #edc850;
+    color: white;
+    font-size: 22px;
+}
+
+.tile-1024 {
+    background: #edc53f;
+    color: white;
+    font-size: 20px;
+}
+
+.tile-2048 {
+    background: #edc22e;
+    color: white;
+    font-size: 20px;
+}
+

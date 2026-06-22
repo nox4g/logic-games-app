@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="profile.pageTitle">Профіль користувача</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<header class="game-header profile-header">
+    <a href="../index.html" class="home-btn" aria-label="На головну">
+        <svg viewBox="0 0 24 24" class="home-icon" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </a>
+
+    <select class="language-select profile-language-select">
+        <option value="uk">UA</option>
+        <option value="en">EN</option>
+    </select>
+
+    <button id="logoutProfileBtn" class="profile-logout-btn" data-i18n="profile.logout">
+        Вийти
+    </button>
+
+    <div>
+        <h1 data-i18n="profile.title">Профіль користувача</h1>
+        <p data-i18n="profile.description">Перегляд акаунту та досягнень в іграх.</p>
+    </div>
+</header>
+
+<main class="profile-page">
+
+    <section class="profile-user-card">
+        <h2 data-i18n="profile.accountInfo">Інформація про акаунт</h2>
+
+        <p>
+            <strong data-i18n="profile.username">Ім’я користувача:</strong>
+            <span id="profileUsername">---</span>
+        </p>
+    </section>
+
+    <section class="profile-achievements">
+        <h2 data-i18n="profile.achievements">Досягнення</h2>
+
+        <div id="achievementsGrid" class="achievements-grid"></div>
+    </section>
+
+</main>
+
+<script src="../js/i18n.js"></script>
+<script src="../js/api.js"></script>
+
+<script>
+    function profileT(key) {
+        if (typeof translate === "function") {
+            return translate(key);
+        }
+
+        return key;
+    }
+
+    const profileUsername = document.getElementById("profileUsername");
+    const logoutProfileBtn = document.getElementById("logoutProfileBtn");
+    const achievementsGrid = document.getElementById("achievementsGrid");
+
+    const gamesList = [
+        { key: "2048", title: "2048" },
+        { key: "Tic-Tac-Toe", title: "Tic-Tac-Toe" },
+        { key: "Sudoku", title: "Sudoku" },
+        { key: "Minesweeper", title: "Minesweeper" },
+        { key: "Solitaire", title: "Solitaire" },
+        { key: "Chess", title: "Chess" },
+        { key: "Checkers", title: "Checkers" }
+    ];
+
+    if (!window.gameApi) {
+        console.error("api.js не підключився");
+    } else {
+        const user = window.gameApi.getCurrentUser();
+
+        if (!user) {
+            window.location.href = "../index.html";
+        } else {
+            profileUsername.textContent = user.username;
+            loadProfileStats();
+        }
+    }
+
+    logoutProfileBtn.addEventListener("click", async function() {
+        await window.gameApi.logoutUser();
+        window.location.href = "../index.html";
+    });
+
+    document.querySelectorAll(".language-select").forEach(function(select) {
+        select.addEventListener("change", function() {
+            setTimeout(function() {
+                loadProfileStats();
+            }, 0);
+        });
+    });
+
+    async function loadProfileStats() {
+        const result = await window.gameApi.getUserStats();
+
+        if (result.sessionExpired) {
+            alert(profileT("profile.sessionExpired"));
+            window.location.href = "../index.html";
+            return;
+        }
+
+        const stats = result.success ? result.stats || {} : {};
+
+        achievementsGrid.innerHTML = "";
+
+        gamesList.forEach(function(game) {
+            const stat = stats[game.key] || {
+                played: 0,
+                wins: 0,
+                losses: 0,
+                bestScore: 0,
+                results: []
+            };
+
+            const rows = getAchievementRows(game, stat);
+
+            const card = document.createElement("div");
+            card.classList.add("game-achievement-card");
+
+            card.innerHTML = `
+                <h3>${game.title}</h3>
+
+                <div class="achievement-row">
+                    <span>${rows[0].label}</span>
+                    <strong>${rows[0].value}</strong>
+                </div>
+
+                <div class="achievement-row">
+                    <span>${rows[1].label}</span>
+                    <strong>${rows[1].value}</strong>
+                </div>
+
+                <div class="achievement-row">
+                    <span>${rows[2].label}</span>
+                    <strong>${rows[2].value}</strong>
+                </div>
+
+                <div class="achievement-row">
+                    <span>${rows[3].label}</span>
+                    <strong>${rows[3].value}</strong>
+                </div>
+            `;
+
+            achievementsGrid.appendChild(card);
+        });
+    }
+
+    function getAchievementRows(game, stat) {
+        if (game.key === "2048") {
+            return [
+                { label: profileT("profile.stat.games"), value: stat.played },
+                { label: profileT("profile.stat.wins"), value: stat.wins },
+                { label: profileT("profile.stat.losses"), value: stat.losses },
+                { label: profileT("profile.stat.score"), value: stat.bestScore }
+            ];
+        }
+
+        if (game.key === "Tic-Tac-Toe") {
+            return [
+                { label: profileT("profile.stat.games"), value: stat.played },
+                { label: profileT("profile.stat.wins"), value: stat.wins },
+                { label: profileT("profile.stat.losses"), value: stat.losses },
+                { label: profileT("profile.stat.draws"), value: countResults(stat, "draw") }
+            ];
+        }
+
+        if (game.key === "Sudoku") {
+            return [
+                { label: profileT("profile.stat.games"), value: stat.played },
+                { label: profileT("profile.stat.solved"), value: stat.wins },
+                { label: profileT("profile.stat.failed"), value: stat.losses },
+                { label: profileT("profile.stat.perfect"), value: countPerfectSudoku(stat) }
+            ];
+        }
+
+        if (game.key === "Minesweeper") {
+            return [
+                { label: profileT("profile.stat.games"), value: stat.played },
+                { label: profileT("profile.stat.wins"), value: stat.wins },
+                { label: profileT("profile.stat.explosions"), value: stat.losses },
+                { label: profileT("profile.stat.opened"), value: countOpenedCells(stat) }
+            ];
+        }
+
+        if (game.key === "Solitaire") {
+            return [
+                { label: profileT("profile.stat.games"), value: stat.played },
+                { label: profileT("profile.stat.completed"), value: stat.wins },
+                { label: profileT("profile.stat.notCompleted"), value: stat.losses },
+                { label: profileT("profile.stat.foundationCards"), value: countFoundationCards(stat) }
+            ];
+        }
+
+        if (game.key === "Chess") {
+            return [
+                { label: profileT("profile.stat.games"), value: stat.played },
+                { label: profileT("profile.stat.wins"), value: stat.wins },
+                { label: profileT("profile.stat.losses"), value: stat.losses },
+                { label: profileT("profile.stat.draws"), value: countResults(stat, "draw") }
+            ];
+        }
+
+        if (game.key === "Checkers") {
+            return [
+                { label: profileT("profile.stat.games"), value: stat.played },
+                { label: profileT("profile.stat.wins"), value: stat.wins },
+                { label: profileT("profile.stat.losses"), value: stat.losses },
+                { label: profileT("profile.stat.captured"), value: countCapturedPieces(stat) }
+            ];
+        }
+
+        return [
+            { label: profileT("profile.stat.games"), value: stat.played },
+            { label: profileT("profile.stat.wins"), value: stat.wins },
+            { label: profileT("profile.stat.losses"), value: stat.losses },
+            { label: profileT("profile.stat.score"), value: stat.bestScore }
+        ];
+    }
+
+    function countResults(stat, resultName) {
+        if (!stat.results) {
+            return 0;
+        }
+
+        return stat.results.filter(function(item) {
+            return item.result === resultName;
+        }).length;
+    }
+
+    function getDetails(item) {
+        if (!item || !item.details) {
+            return {};
+        }
+
+        if (typeof item.details === "object") {
+            return item.details;
+        }
+
+        try {
+            return JSON.parse(item.details);
+        } catch (error) {
+            return {};
+        }
+    }
+
+    function countPerfectSudoku(stat) {
+        if (!stat.results) {
+            return 0;
+        }
+
+        return stat.results.filter(function(item) {
+            const details = getDetails(item);
+            return item.result === "win" && Number(details.mistakes || 0) === 0;
+        }).length;
+    }
+
+    function countOpenedCells(stat) {
+        if (!stat.results) {
+            return 0;
+        }
+
+        let total = 0;
+
+        stat.results.forEach(function(item) {
+            const details = getDetails(item);
+            total += Number(details.openedCells || 0);
+        });
+
+        return total;
+    }
+
+    function countFoundationCards(stat) {
+        if (!stat.results) {
+            return 0;
+        }
+
+        let total = 0;
+
+        stat.results.forEach(function(item) {
+            const details = getDetails(item);
+            total += Number(details.foundationCards || 0);
+        });
+
+        return total;
+    }
+
+    function countCapturedPieces(stat) {
+        if (!stat.results) {
+            return 0;
+        }
+
+        let total = 0;
+
+        stat.results.forEach(function(item) {
+            const details = getDetails(item);
+            total += Number(details.capturedPieces || 0);
+        });
+
+        return total;
+    }
+</script>
+
+</body>
+</html>

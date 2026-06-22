@@ -1,0 +1,27 @@
+.tictactoe-board {
+    width: 330px;
+    margin: 25px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.tictactoe-cell {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: white;
+    border: 3px solid #2d3e50;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 52px;
+    font-weight: bold;
+    color: #2d3e50;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.tictactoe-cell:hover {
+    background: #eaf4ff;
+}

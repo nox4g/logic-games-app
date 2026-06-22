@@ -1,0 +1,259 @@
+.solitaire-area {
+    --card-width: 90px;
+    --card-height: 125px;
+    --card-gap: 14px;
+    --card-offset: 32px;
+    --tableau-min-height: 460px;
+
+    max-width: 1050px;
+    min-height: 720px;
+    margin: 25px auto;
+    padding: 20px 20px 80px;
+    background: #2d3e50;
+    border-radius: 18px;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18);
+}
+
+.solitaire-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+}
+
+.pile-box {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+.pile-box p {
+    margin-bottom: 8px;
+}
+
+.foundations-box {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.card-pile,
+.tableau-column {
+    width: var(--card-width);
+    min-height: var(--card-height);
+    border: 2px dashed rgba(255, 255, 255, 0.45);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.12);
+    position: relative;
+}
+
+.tableau-column {
+    min-height: var(--tableau-min-height);
+}
+
+.card-pile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stock-pile,
+.waste-pile,
+.foundation-pile {
+    cursor: pointer;
+}
+
+.tableau-row {
+    display: grid;
+    grid-template-columns: repeat(7, var(--card-width));
+    justify-content: center;
+    gap: var(--card-gap); 
+}
+
+.tableau-column {
+    cursor: pointer;
+}
+
+.playing-card {
+    width: var(--card-width);
+    height: var(--card-height);
+    background: white;
+    border: 2px solid #2d3e50;
+    border-radius: 10px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 7px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.card-pile .playing-card {
+    position: relative;
+}
+
+.playing-card.red {
+    color: #c0392b;
+}
+
+.playing-card.black {
+    color: #111111;
+}
+
+.playing-card.face-down {
+    background: linear-gradient(135deg, #3498db, #2d3e50);
+    border-color: white;
+}
+
+.playing-card.face-down::before {
+    content: "";
+    width: 55px;
+    height: 80px;
+    border: 3px solid rgba(255, 255, 255, 0.75);
+    border-radius: 8px;
+    align-self: center;
+    margin-top: 12px;
+}
+
+.card-top,
+.card-bottom {
+    font-size: 18px;
+    line-height: 1.1;
+}
+
+.card-bottom {
+    transform: rotate(180deg);
+    align-self: flex-end;
+}
+
+.card-center {
+    font-size: 34px;
+    text-align: center;
+}
+
+.playing-card.selected {
+    outline: 4px solid #f1c40f;
+    outline-offset: -4px;
+}
+
+.empty-pile-text {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 32px;
+}
+
+@media (max-width: 850px) {
+    .solitaire-area {
+        --card-width: 68px;
+        --card-height: 94px;
+        --card-gap: 8px;
+        --card-offset: 24px;
+        --tableau-min-height: 380px;
+
+        max-width: calc(100vw - 20px);
+        min-height: 620px;
+        padding: 14px 8px 50px;
+        overflow-x: hidden;
+    }
+
+    .solitaire-top-row {
+        display: grid;
+        grid-template-columns: repeat(6, var(--card-width));
+        justify-content: center;
+        gap: var(--card-gap);
+        margin-bottom: 28px;
+    }
+
+    .foundations-box {
+        display: contents;
+    }
+
+    .pile-box p {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .card-top,
+    .card-bottom {
+        font-size: 13px;
+    }
+
+    .card-center {
+        font-size: 26px;
+    }
+
+    .playing-card {
+        padding: 5px;
+        border-radius: 8px;
+    }
+
+    .playing-card.face-down::before {
+        width: 38px;
+        height: 58px;
+        margin-top: 8px;
+    }
+}
+
+@media (max-width: 500px) {
+    .solitaire-area {
+        --card-width: 43px;
+        --card-height: 60px;
+        --card-gap: 4px;
+        --card-offset: 18px;
+        --tableau-min-height: 320px;
+
+        max-width: calc(100vw - 10px);
+        min-height: 520px;
+        padding: 10px 4px 35px;
+        border-radius: 14px;
+    }
+
+    .solitaire-top-row {
+        grid-template-columns: repeat(6, var(--card-width));
+        gap: var(--card-gap);
+        margin-bottom: 24px;
+    }
+
+    .tableau-row {
+        grid-template-columns: repeat(7, var(--card-width));
+        gap: var(--card-gap);
+    }
+
+    .pile-box p {
+        font-size: 11px;
+        margin-bottom: 5px;
+    }
+
+    .playing-card {
+        padding: 3px;
+        border-width: 1px;
+        border-radius: 6px;
+    }
+
+    .card-top,
+    .card-bottom {
+        font-size: 9px;
+    }
+
+    .card-center {
+        font-size: 18px;
+    }
+
+    .empty-pile-text {
+        font-size: 18px;
+    }
+
+    .playing-card.face-down::before {
+        width: 25px;
+        height: 36px;
+        border-width: 2px;
+        margin-top: 5px;
+    }
+}

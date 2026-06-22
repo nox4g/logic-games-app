@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гра Tic-Tac-Toe</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/games/tictactoe.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<header class="game-header">
+    <a href="../index.html" class="home-btn" aria-label="На головну">
+        <svg viewBox="0 0 24 24" class="home-icon" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </a>
+
+    <select class="language-select game-language-select">
+        <option value="uk">UA</option>
+        <option value="en">EN</option>
+    </select>
+
+    <div>
+        <h1 data-i18n="game.tictactoe.title">Гра Хрестики-нулики</h1>
+        <p data-i18n="game.tictactoe.desc">
+            Класична гра “Хрестики-нулики” для двох гравців або проти ШІ.
+        </p>
+    </div>
+</header>
+
+<main class="game-page">
+
+    <div class="mode-box">
+        <p data-i18n="game.mode">Режим гри:</p>
+
+        <button id="twoPlayersMode" class="mode-btn active-mode" data-i18n="game.twoPlayers">
+            2 гравці
+        </button>
+
+        <button id="aiMode" class="mode-btn" data-i18n="game.ai">
+            Проти ШІ
+        </button>
+    </div>
+
+    <div class="game-info">
+        <p>
+            <span data-i18n="game.currentPlayer">Хід гравця:</span>
+            <span id="currentPlayer">X</span>
+        </p>
+
+        <button id="restartTicTacToe" data-i18n="button.newGame">Нова гра</button>
+    </div>
+
+    <div id="ticTacToeBoard" class="tictactoe-board">
+        <div class="tictactoe-cell" data-index="0"></div>
+        <div class="tictactoe-cell" data-index="1"></div>
+        <div class="tictactoe-cell" data-index="2"></div>
+        <div class="tictactoe-cell" data-index="3"></div>
+        <div class="tictactoe-cell" data-index="4"></div>
+        <div class="tictactoe-cell" data-index="5"></div>
+        <div class="tictactoe-cell" data-index="6"></div>
+        <div class="tictactoe-cell" data-index="7"></div>
+        <div class="tictactoe-cell" data-index="8"></div>
+    </div>
+
+    <p id="ticTacToeMessage" class="game-message"></p>
+
+    <section class="rules-box">
+        <h2 data-i18n="game.rules">Правила гри</h2>
+        <p data-i18n="rules.tictactoe">
+            Гравці по черзі ставлять символи X та O на полі 3×3.
+            Перемагає той, хто першим поставить три свої символи в ряд.
+        </p>
+    </section>
+
+</main>
+
+<script src="../js/i18n.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/games/tictactoe.js"></script>
+</body>
+</html>

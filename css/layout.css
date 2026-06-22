@@ -1,0 +1,152 @@
+.main-wrapper {
+    min-height: 100vh;
+    background: #f3f5f9;
+}
+
+.top-header {
+    height: 90px;
+    background: #ffffff;
+    border-bottom: 3px solid #2d3e50;
+    display: grid;
+    grid-template-columns: 120px 1fr 240px;
+    align-items: center;
+    padding: 0 25px;
+    gap: 20px;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+}
+
+.search-box input {
+    width: 100%;
+    max-width: 650px;
+    padding: 14px 18px;
+    border: 2px solid #2d3e50;
+    border-radius: 12px;
+    font-size: 18px;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: #3498db;
+}
+
+.content-layout {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    min-height: calc(100vh - 90px);
+}
+
+.sidebar {
+    background: #ffffff;
+    border-right: 3px solid #2d3e50;
+    padding: 30px 20px;
+}
+
+.sidebar h2 {
+    writing-mode: horizontal-tb;
+    transform: none;
+
+    width: calc(100% + 40px);
+    margin: 0 -20px 30px;
+    padding-bottom: 25px;
+
+    font-size: 30px;
+    line-height: 1.15;
+    text-align: center;
+    color: #2d3e50;
+
+    border-bottom: 3px solid #2d3e50;
+}
+
+.games-area {
+    padding: 35px;
+}
+
+.games-area h1 {
+    text-align: center;
+    color: #2d3e50;
+    margin-bottom: 35px;
+    font-size: 34px;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.game-square {
+    height: 180px;
+    background: #ffffff;
+    border: 3px solid #2d3e50;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #2d3e50;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
+    transition: 0.3s;
+}
+
+.game-square:hover {
+    transform: translateY(-6px);
+    background: #eaf4ff;
+}
+
+.game-square h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.game-square p {
+    font-size: 16px;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.game-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 35px 20px;
+    text-align: center;
+}
+
+.rules-box {
+    max-width: 750px;
+    margin: 35px auto 0;
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    text-align: left;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
+}
+
+.rules-box h2 {
+    text-align: center;
+    color: #2d3e50;
+    margin-bottom: 15px;
+}
+
+.rules-box p {
+    font-size: 17px;
+    line-height: 1.5;
+}

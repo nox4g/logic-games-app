@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гра Solitaire</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/games/solitaire.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<header class="game-header">
+    <a href="../index.html" class="home-btn" aria-label="На головну">
+        <svg viewBox="0 0 24 24" class="home-icon" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </a>
+
+    <select class="language-select game-language-select">
+        <option value="uk">UA</option>
+        <option value="en">EN</option>
+    </select>
+
+    <div>
+        <h1 data-i18n="game.solitaire.title">Гра Пасьянс</h1>
+        <p data-i18n="game.solitaire.desc">
+            Розкладайте карти за мастями від туза до короля.
+        </p>
+    </div>
+</header>
+
+<main class="game-page">
+
+    <div class="difficulty-box">
+        <p data-i18n="game.difficulty">Складність:</p>
+
+        <div class="difficulty-buttons">
+            <button class="difficulty-btn solitaire-difficulty-btn easy-btn active-difficulty" data-difficulty="easy">
+                <span data-i18n="difficulty.solitaire.easy">Легка</span>
+            </button>
+
+            <button class="difficulty-btn solitaire-difficulty-btn hard-btn" data-difficulty="hard">
+                <span data-i18n="difficulty.solitaire.hard">Складна</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="game-info">
+        <p>
+            <span data-i18n="game.solitaire.stock">Колода:</span>
+            <span id="stockCount">24</span>
+        </p>
+
+        <p>
+            <span data-i18n="game.solitaire.waste">Скидання:</span>
+            <span id="wasteCount">0</span>
+        </p>
+
+        <button id="restartSolitaire" data-i18n="button.newGame">Нова гра</button>
+        <button id="undoSolitaire" data-i18n="button.undo">Відмінити хід</button>
+    </div>
+
+    <div class="solitaire-area">
+
+        <div class="solitaire-top-row">
+
+            <div class="pile-box">
+                <p data-i18n="game.solitaire.stock">Колода</p>
+                <div id="stockPile" class="card-pile stock-pile"></div>
+            </div>
+
+            <div class="pile-box">
+                <p data-i18n="game.solitaire.waste">Скидання</p>
+                <div id="wastePile" class="card-pile waste-pile"></div>
+            </div>
+
+            <div class="foundations-box">
+                <div class="pile-box">
+                    <p>♥</p>
+                    <div class="card-pile foundation-pile" data-suit="hearts"></div>
+                </div>
+
+                <div class="pile-box">
+                    <p>♦</p>
+                    <div class="card-pile foundation-pile" data-suit="diamonds"></div>
+                </div>
+
+                <div class="pile-box">
+                    <p>♣</p>
+                    <div class="card-pile foundation-pile" data-suit="clubs"></div>
+                </div>
+
+                <div class="pile-box">
+                    <p>♠</p>
+                    <div class="card-pile foundation-pile" data-suit="spades"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="tableau" class="tableau-row">
+            <div class="tableau-column" data-column="0"></div>
+            <div class="tableau-column" data-column="1"></div>
+            <div class="tableau-column" data-column="2"></div>
+            <div class="tableau-column" data-column="3"></div>
+            <div class="tableau-column" data-column="4"></div>
+            <div class="tableau-column" data-column="5"></div>
+            <div class="tableau-column" data-column="6"></div>
+        </div>
+
+    </div>
+
+    <p id="solitaireMessage" class="game-message"></p>
+
+    <section class="rules-box">
+        <h2 data-i18n="game.rules">Правила гри</h2>
+        <p data-i18n="rules.solitaire">
+            У пасьянсі потрібно перенести всі карти в бази мастей від туза до короля.
+            У колонках карти розкладаються за спаданням і з чергуванням кольорів.
+        </p>
+    </section>
+
+</main>
+
+<script src="../js/i18n.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/games/solitaire.js"></script>
+</body>
+</html>
